@@ -1,5 +1,7 @@
 # GameMatch Backend
 
+![GameMatch demo](assets/game_match.gif)
+
 > 게임별 커뮤니티, 게임 프로필, 친선 경기 생성/신청/참여 기능을 제공하는 Spring Boot REST API 백엔드입니다.
 >
 > 엔티티별 패키지를 기준으로 Controller, Domain, DTO, Repository, Service를 분리하고, VO 기반 도메인 모델, JWT 인증, Refresh Token Rotation, 매칭 상태 정합성, Supabase PostgreSQL Seed 흐름을 함께 정리했습니다.
