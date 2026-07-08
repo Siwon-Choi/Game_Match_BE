@@ -1,15 +1,17 @@
 package com.hd.gamematch.game.adapter.out.persistence;
 
+import com.hd.gamematch.game.application.port.out.LoadGamePort;
 import com.hd.gamematch.game.application.port.out.LoadGamesPort;
 import com.hd.gamematch.game.domain.Game;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 @RequiredArgsConstructor
-public class GamePersistenceAdapter implements LoadGamesPort {
+public class GamePersistenceAdapter implements LoadGamesPort, LoadGamePort {
 
     private final GameJpaRepository gameJpaRepository;
 
@@ -43,5 +45,11 @@ public class GamePersistenceAdapter implements LoadGamesPort {
                 .stream()
                 .map(GamePersistenceMapper::toDomain)
                 .toList();
+    }
+
+    @Override
+    public Optional<Game> loadGameById(Long gameId){
+        return gameJpaRepository.findById(gameId)
+                .map(GamePersistenceMapper::toDomain);
     }
 }
