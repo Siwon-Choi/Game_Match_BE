@@ -8,6 +8,7 @@ import org.junit.jupiter.api.Test;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class FindGameServiceTest {
 
@@ -34,6 +35,24 @@ class FindGameServiceTest {
         assertEquals(1L, loadGamePort.gameId);
     }
 
+
+    @Test
+    void 게임_id로_조회했는데_게임이_없으면_예외가_발생한다() {
+        // given
+        // LoadGamePort가 DB 대신 "조회 결과 없음"을 반환한다고 가정한다.
+        RecordingLoadGamePort loadGamePort = new RecordingLoadGamePort(Optional.empty());
+        FindGameService service = new FindGameService(loadGamePort);
+
+        // when & then
+        IllegalArgumentException exception = assertThrows(
+                IllegalArgumentException.class,
+                () -> service.findGame(FindGameQuery.of(999L))
+        );
+
+        assertEquals("게임을 찾을 수 없습니다.", exception.getMessage());
+    }
+
+
     private static class RecordingLoadGamePort implements LoadGamePort {
 
         private final Optional<Game> result;
@@ -49,4 +68,5 @@ class FindGameServiceTest {
             return result;
         }
     }
+
 }
