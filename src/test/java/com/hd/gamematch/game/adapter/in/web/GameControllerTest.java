@@ -14,6 +14,10 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 class GameControllerTest {
 
     @Test
+
+    //findGames 호출 시
+    //GameResponse 목록을 포함한
+    //CommonResponse가 반환된다.
     void findGamesReturnsCommonResponseWithGameResponses() {
         RecordingFindGamesUseCase findGamesUseCase = new RecordingFindGamesUseCase();
         GameController controller = new GameController(findGamesUseCase);
