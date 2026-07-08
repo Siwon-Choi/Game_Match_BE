@@ -5,8 +5,9 @@ public record CommonResponse<T>(
         String code,
         String message,
         T data
-){
-    public static <T> CommonResponse<T> success(T data){
+) {
+
+    public static <T> CommonResponse<T> success(T data) {
         return new CommonResponse<>(
                 true,
                 "SUCCESS",
