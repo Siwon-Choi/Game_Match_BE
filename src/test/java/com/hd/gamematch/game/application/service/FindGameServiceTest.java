@@ -13,7 +13,6 @@ class FindGameServiceTest {
 
     @Test
     void 게임_id로_게임을_단건_조회한다() {
-        // given
         // LoadGamePort가 DB 대신 Game을 하나 반환한다고 가정한다.
         RecordingLoadGamePort loadGamePort = new RecordingLoadGamePort(
                 Optional.of(Game.of(1L, "League of Legends", "MOBA", "https://example.com/lol"))
