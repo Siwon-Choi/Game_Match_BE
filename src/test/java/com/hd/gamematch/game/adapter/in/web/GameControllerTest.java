@@ -6,7 +6,6 @@ import com.hd.gamematch.game.application.port.in.FindGamesQuery;
 import com.hd.gamematch.game.application.port.in.FindGamesUseCase;
 import com.hd.gamematch.game.domain.Game;
 import com.hd.gamematch.global.response.CommonResponse;
-import jdk.jfr.Recording;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
@@ -23,7 +22,15 @@ class GameControllerTest {
     //CommonResponse가 반환된다.
     void findGamesReturnsCommonResponseWithGameResponses() {
         RecordingFindGamesUseCase findGamesUseCase = new RecordingFindGamesUseCase();
-        GameController controller = new GameController(findGamesUseCase);
+
+        RecordingFindGameUseCase findGameUseCase = new RecordingFindGameUseCase(
+                Game.of(1L, "League of Legends", "MOBA", "https://example.com/lol")
+        );
+
+        GameController controller = new GameController(
+                findGamesUseCase,
+                findGameUseCase
+        );
 
         CommonResponse<List<GameResponse>> response = controller.findGames(" League ", " MOBA ");
 
